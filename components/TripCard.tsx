@@ -7,7 +7,7 @@ export interface LocationTime {
 }
 
 const LocationTimeDisplay = ({location, time}: LocationTime) => (
-  <View className="flex flex-1 flex-col items-center justify-center bg-gray-50 w-20 h-20">
+  <View className="flex flex-1 flex-col items-center justify-center bg-gray-50 w-32 h-32">
     {location == "Home" && <FontAwesome size={28} name="home" />}
     <View><Text className="text-center">{location}</Text></View>
     <View><Text className="text-lg">{time}</Text></View>
@@ -27,7 +27,7 @@ export const TripCard = ({
 }) => {
   
   return (
-    <View className="flex flex-1 flex-row justify-between bg-white h-20">
+    <View className="flex flex-1 flex-row justify-between bg-white">
       <LocationTimeDisplay {...start} />
       <View>
         <Text>Data here...</Text>
