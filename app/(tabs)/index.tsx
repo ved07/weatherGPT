@@ -3,12 +3,15 @@ import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { Plan, usePlanner } from "@/hooks/usePlanner";
 import { useSettings } from "@/hooks/useSettings";
 import { useWeather } from "@/hooks/useWeather";
-import { ActivityIndicator, SafeAreaView, Text, View } from "react-native";
+import { ActivityIndicator, Image, SafeAreaView, Text, View } from "react-native";
 
 const TopGraphic = () => {
   return (
     <View>
-      <Text>TOP GRAPHIC HERE</Text>
+      <Image
+        source={require('./../../assets/sun.png')}
+        style={{ width: 50, height: 50, margin: 10 }}
+      />
     </View>
   )
 }
