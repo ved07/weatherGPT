@@ -1,21 +1,20 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { View, Text } from "react-native";
-import {styled} from 'nativewind'
 
 export interface LocationTime {
   location: string;
   time: string;
 }
 
-const LocationTimeDisplay = styled(({location, time}: LocationTime) => (
-  <View className="flex flex-col items-center bg-gray-200">
+const LocationTimeDisplay = ({location, time}: LocationTime) => (
+  <View className="flex flex-1 flex-col items-center justify-center bg-gray-50 w-20 h-20">
     {location == "Home" && <FontAwesome size={28} name="home" />}
-    <View><Text>{location}</Text></View>
-    <View><Text className="text-red-300">{time}</Text></View>
+    <View><Text className="text-center">{location}</Text></View>
+    <View><Text className="text-lg">{time}</Text></View>
   </View>
-))
+)
 
-export const TripCard = styled(({
+export const TripCard = ({
   temperature,
   rainfall,
   start,
@@ -28,9 +27,12 @@ export const TripCard = styled(({
 }) => {
   
   return (
-    <View className="flex flex-row bg-gray-200">
+    <View className="flex flex-1 flex-row justify-between bg-white h-20">
       <LocationTimeDisplay {...start} />
+      <View>
+        <Text>Data here...</Text>
+      </View>
       <LocationTimeDisplay {...end} />
     </View>
   )
-})
+}

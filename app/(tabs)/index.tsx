@@ -3,8 +3,7 @@ import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { Plan, usePlanner } from "@/hooks/usePlanner";
 import { useSettings } from "@/hooks/useSettings";
 import { useWeather } from "@/hooks/useWeather";
-import { ActivityIndicator, Text, View } from "react-native";
-import SafeAreaView from "@/components/SafeAreaView";
+import { ActivityIndicator, SafeAreaView, Text, View } from "react-native";
 
 const TopGraphic = () => {
   return (
@@ -33,7 +32,7 @@ export default function HomeScreen() {
   if (loading) return <SafeAreaView className="flex items-center justify-center"><ActivityIndicator /></SafeAreaView>
 
   return (
-    <SafeAreaView className="flex flex-col items-center justify-center w-full h-full bg-red-100">
+    <SafeAreaView className="flex flex-col items-center space-y-4">
       <TopGraphic />
       <Banner method={plan.method} />
       <TripCard
