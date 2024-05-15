@@ -23,6 +23,7 @@ export const TextBlog = ({
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'white'
       }}>
         <Text style = {{
           textAlign: "center", 
