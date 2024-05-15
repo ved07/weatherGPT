@@ -22,7 +22,7 @@ export const Background = ({ children } : BackgroundProps) => {
         <TopGraphic/>
         <View style = {{
           backgroundColor: "#0FC100",
-          marginTop: 270,
+          marginTop: 280,
           height: 700,
           ...StyleSheet.absoluteFillObject,
         }}/>
