@@ -56,33 +56,37 @@ export const Background = ({ children } : BackgroundProps) => {
 
     setTimeout(rerender, 50)
   }, [])
-    
+    //  style={{backgroundColor: "#089FF3"}}
     return (
-      <View style={{backgroundColor: "#089FF3"}}>
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
+      <View style={{
+        width: "100%",
+        height: "100%",
+      }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", backgroundColor: "#089FF3",
+          width: "100%", height: 350, position: "absolute", top: 0, left: 0, right: 0, bottom: 0
+        }}>
           <Image
-              source={require('./../assets/sun.png')}
-              style={{ 
-                left: sun_position_x, 
-                top: 0,
-                marginLeft: 0, 
-                flex: 1, 
-                resizeMode: 'contain', 
-                aspectRatio: 1,
-                position: "absolute"
-              }}
+            source={require('./../assets/sun.png')}
+            style={{ 
+              left: sun_position_x, 
+              top: 0,
+              marginLeft: 0, 
+              flex: 1, 
+              resizeMode: 'contain', 
+              aspectRatio: 1,
+              position: "absolute"
+            }}
           />
           <Image
-              source={require('./../assets/cloud.png')}
-              
-              style={{
-                left:cloud_position_x,
-                top: cloud_position_y,
-                marginLeft: 1, 
-                flex: 2, 
-                resizeMode: 'contain', 
-                aspectRatio: 3,
-              }}
+            source={require('./../assets/cloud.png')}
+            style={{
+              left:cloud_position_x,
+              top: cloud_position_y,
+              marginLeft: 1, 
+              flex: 2, 
+              resizeMode: 'contain', 
+              aspectRatio: 3,
+            }}
           />
           <Image
             source = {require('./../assets/tree.png')}
@@ -108,14 +112,19 @@ export const Background = ({ children } : BackgroundProps) => {
               top: 334
             }}
           />
-      </View>
+        </View>
         <View style = {{
           backgroundColor: "#0FC100",
-          marginTop: 350,
-          height: 700,
+          height: 10000,
+          zIndex: -1,
           ...StyleSheet.absoluteFillObject,
         }}/>
-        {children}
+        <View style={{
+          width: "100%",
+          height: "100%",
+        }}>
+          {children}
+        </View>
       </View>
     )
 }

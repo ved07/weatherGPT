@@ -4,16 +4,18 @@ import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { Plan, usePlanner } from "@/hooks/usePlanner";
 import { useSettings } from "@/hooks/useSettings";
 import { useWeather } from "@/hooks/useWeather";
-import { ActivityIndicator, Image, TextStyle, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Image, TextStyle, SafeAreaView, StyleSheet, Text, View, StyleProp, ViewStyle } from "react-native";
 import { styles } from "@/constants/styles";
 
 const Banner = ({
-  method
+  method,
+  style
 }: {
   method: string
+  style?: StyleProp<ViewStyle>
 }) => {
   return (
-    <View className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center items-center">
+    <View style={style} className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center items-center">
       {method === 'cycle' ? (
         <Text>You're good to {method}!</Text>
       ) : (
@@ -35,9 +37,14 @@ export default function HomeScreen() {
 
   return (
     <Background>
-      <SafeAreaView className="flex flex-col items-center justify-between space-y-4 min-h-[80vh]">
+      <View style={{
+        width: "100%",
+        height: "100%",
+        paddingTop: 360,
+        paddingBottom: 10,
+      }} className="flex flex-col items-center justify-between">
         <Banner method={plan.method} />
-        <View className="flex flex-col space-y-5">
+        <View className="flex flex-col">
           <TripCard
             temperature={13}
             rainfall={20}
@@ -51,6 +58,7 @@ export default function HomeScreen() {
             }}
           />
           <TripCard
+            style={{ marginTop: 20 }}
             temperature={18}
             rainfall={5}
             start={{
@@ -63,7 +71,7 @@ export default function HomeScreen() {
             }}
           />
         </View>
-      </SafeAreaView>
+      </View>
     </Background>
   );
 }

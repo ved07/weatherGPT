@@ -1,5 +1,5 @@
 import { styles } from "@/constants/styles";
-import { View, Text } from "react-native";
+import { View, Text, StyleProp, ViewStyle } from "react-native";
 
 export interface LocationTime {
   location: string;
@@ -17,16 +17,18 @@ export const TripCard = ({
   temperature,
   rainfall,
   start,
-  end
+  end,
+  style
 }: {
   temperature: number,
   start: LocationTime,
   end: LocationTime,
   rainfall: number
+  style?: StyleProp<ViewStyle>
 }) => {
   
   return (
-    <View className="flex flex-row justify-between bg-white">
+    <View style={style} className="flex flex-row justify-between bg-white">
       <LocationTimeDisplay {...start} />
       <View>
         <Text>Data here...</Text>
