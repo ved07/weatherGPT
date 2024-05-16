@@ -27,11 +27,8 @@ export const TextBlog = ({
         justifyContent: 'center',
         backgroundColor: 'white'
       }}>
-        <Text style = {{
-          textAlign: "center", 
-          fontSize: 15,
-          fontWeight: bold ? 'bold' : 'normal',
-          }}>{text}</Text>
+        <Text style={textStyle}>{text}</Text>
+        <Text>{hidden}</Text>
       </View>
     </Text>
   )
