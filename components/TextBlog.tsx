@@ -2,10 +2,12 @@ import { TextStyle, View, Text } from "react-native";
 
 export const TextBlog = ({
   text,
+  bold,
   hidden,
   textStyle
 }: {
     text: string
+    bold?: boolean
     hidden: string
     textStyle?: TextStyle
 }) => {
