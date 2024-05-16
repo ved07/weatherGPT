@@ -33,7 +33,7 @@ export default function SettingsScreen() {
         <Text>Temperature: {settings.temperatureTolerance.toFixed(1)}°C</Text>
         <SettingSlider setInputValue={setTemp} minInputLimit={-10} maxInputLimit={40}/>
 
-        <Text>Rainfall: {settings.rainfallTolerance.toFixed(1)}%</Text>
+        <Text>Rainfall: {settings.rainfallTolerance.toFixed(1)}mm</Text>
         <SettingSlider setInputValue={setRain} minInputLimit={0} maxInputLimit={100}/>
         
         <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>
@@ -43,7 +43,7 @@ export default function SettingsScreen() {
         <Text style={styles.exo2RegularText}>Enable 24 hour time</Text>
         <TimeSwitch />
       </View>
-
+      
     </SafeAreaView>
   );
 }

@@ -46,8 +46,8 @@ export default function HomeScreen() {
         <Banner method={plan.method} />
         <View className="flex flex-col">
           <TripCard
-            temperature={13}
-            rainfall={20}
+            temperature={plan.toJourney.temperature}
+            rainfall={plan.toJourney.rainfall}
             start={{
               location: "Home",
               time: "8:32"
@@ -59,8 +59,8 @@ export default function HomeScreen() {
           />
           <TripCard
             style={{ marginTop: 20 }}
-            temperature={18}
-            rainfall={5}
+            temperature={plan.backJourney.temperature}
+            rainfall={plan.backJourney.rainfall}
             start={{
               location: "Chemistry Lab",
               time: "17:00"

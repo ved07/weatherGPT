@@ -31,7 +31,8 @@ export const TripCard = ({
     <View style={style} className="flex flex-row justify-between bg-white">
       <LocationTimeDisplay {...start} />
       <View>
-        <Text>Data here...</Text>
+        <Text>{temperature.toFixed(1)}°C</Text>
+        <Text>{rainfall.toFixed(1)}mm</Text>
       </View>
       <LocationTimeDisplay {...end} />
     </View>
