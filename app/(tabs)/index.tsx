@@ -15,9 +15,9 @@ const Banner = ({
   return (
     <View className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center items-center">
       {method === 'cycle' ? (
-        <Text style={styles.farroRegularText}>You're good to {method}!</Text>
+        <Text>You're good to {method}!</Text>
       ) : (
-        <Text style={styles.farroRegularText}>You'll have to {method} today!</Text>
+        <Text>You'll have to {method} today!</Text>
       )}
       <Image
         source={require('./../../assets/checkmark.png')}
