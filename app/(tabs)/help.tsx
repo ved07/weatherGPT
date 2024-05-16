@@ -5,8 +5,7 @@ import { Background } from "@/components/Background";
 import { LinearTransition } from "react-native-reanimated";
 import { LinearGradient } from 'react-native-linear-gradient';
 import { Children, ReactNode } from "react";
-
-import { styles } from "./index";
+import { styles } from "@/constants/styles";
 
 export default function HelpScreen() {
   return (
