@@ -13,8 +13,14 @@ export default function SettingsScreen() {
     <SafeAreaView style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 30 }}>
       <View>
         <Text style={styles.exo2RegularText}>Settings</Text>
-        <TempRainSliders temp={temp} setTemp={setTemp} rain={rain} setRain={setRain}/>
-        <Text>Testing: temperature={temp}, rainfall={rain}</Text>
+      
+        <Text>Temperature: {settings.temperatureTolerance.toFixed(1)}°C</Text>
+        <SettingSlider setInputValue={setTemp} minInputLimit={-10} maxInputLimit={40}/>
+
+        <Text>Rainfall: {settings.rainfallTolerance.toFixed(1)}%</Text>
+        <SettingSlider setInputValue={setRain} minInputLimit={0} maxInputLimit={100}/>
+        
+        <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'center', margin: 20 }}>
