@@ -7,15 +7,21 @@ interface Settings {
   use24hrTime: boolean;
 }
 
+const defaultSettings = {
+  temperatureTolerance: 15,
+  rainfallTolerance: 40,
+  use24hrTime: false,
+}
+
 export const useSettings = () => {
-  const [settings, setSettingsState] = useState<Settings | null>(null);
+  const [settings, setSettingsState] = useState<Settings>(defaultSettings);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadSettings = async () => {
       try {
         const jsonValue = await AsyncStorage.getItem('settings');
-        const settings = jsonValue != null ? JSON.parse(jsonValue) : null;
+        const settings = jsonValue != null ? JSON.parse(jsonValue) : defaultSettings;
         setSettingsState(settings);
       } catch (error) {
         console.error('Failed to load settings', error);
