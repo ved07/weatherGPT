@@ -1,6 +1,5 @@
+import { styles } from "@/constants/styles";
 import { View, Text } from "react-native";
-
-import { styles } from "./../app/(tabs)/index";
 
 export interface LocationTime {
   location: string;
