@@ -9,10 +9,10 @@ interface BackgroundProps {
 
 const TopGraphic = () => {
   return (
-      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
           <Image
               source={require('./../assets/sun.png')}
-              style={{ margin: 5, flex: 1, resizeMode: 'contain', aspectRatio: 1 }}
+              style={{ borderLeftWidth: 0, marginLeft: 0, flex: 1, resizeMode: 'contain', aspectRatio: 1 }}
           />
           <Image
               source={require('./../assets/cloud.png')}
