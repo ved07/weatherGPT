@@ -1,13 +1,13 @@
-import { View, Text } from "react-native";
+import { TextStyle, View, Text } from "react-native";
 
 export const TextBlog = ({
   text,
   hidden,
-  bold = false
+  textStyle
 }: {
     text: string
     hidden: string
-    bold?: boolean
+    textStyle?: TextStyle
 }) => {
 
   return (
@@ -25,12 +25,7 @@ export const TextBlog = ({
         justifyContent: 'center',
         backgroundColor: 'white'
       }}>
-        <Text style = {{
-          textAlign: "center", 
-          fontSize: 15,
-          fontWeight: bold ? 'bold' : 'normal',
-          
-          }}>{text}</Text>
+        <Text style={textStyle}>{text}</Text>
         <Text>{hidden}</Text>
       </View>
     </Text>

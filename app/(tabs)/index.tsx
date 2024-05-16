@@ -4,7 +4,44 @@ import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { Plan, usePlanner } from "@/hooks/usePlanner";
 import { useSettings } from "@/hooks/useSettings";
 import { useWeather } from "@/hooks/useWeather";
-import { ActivityIndicator, Image, SafeAreaView, Text, View } from "react-native";
+import { ActivityIndicator, Image, TextStyle, SafeAreaView, StyleSheet, Text, View } from "react-native";
+
+export interface Styles {
+  farroBoldText: TextStyle;
+  farroLightText: TextStyle;
+  farroMediumText: TextStyle;
+  farroRegularText: TextStyle;
+  exo2BoldText: TextStyle;
+  exo2RegularText: TextStyle;
+}
+
+export const styles: Styles = StyleSheet.create({
+  farroBoldText: {
+    fontFamily: "Farro-Bold.ttf",
+    fontSize: 24,
+  },
+  farroLightText: {
+    fontFamily: "Farro-Light.ttf",
+    fontSize: 24,
+  },
+  farroMediumText: {
+    fontFamily: "Farro-Medium.ttf",
+    fontSize: 24,
+  },
+  farroRegularText: {
+    fontFamily: "Farro-Regular.ttf",
+    fontSize: 24,
+  },
+  exo2BoldText: {
+    fontFamily: "Exo2-VariableFont_wght.ttf",
+    fontSize: 30,
+    fontWeight: "bold"
+  },
+  exo2RegularText: {
+    fontFamily: "Exo2-VariableFont_wght.ttf",
+    fontSize: 16,
+  },
+});
 
 const Banner = ({
   method
@@ -14,9 +51,9 @@ const Banner = ({
   return (
     <View className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center">
       {method === 'cycle' ? (
-        <Text>You're good to {method}!</Text>
+        <Text style={styles.farroRegularText}>You're good to {method}!</Text>
       ) : (
-        <Text>You'll have to {method} today!</Text>
+        <Text style={styles.farroRegularText}>You'll have to {method} today!</Text>
       )}
     </View>
   )
