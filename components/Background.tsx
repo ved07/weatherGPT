@@ -34,7 +34,7 @@ export const Background = ({ children } : BackgroundProps) => {
       setTreePosition(treePositionRef.current - 1);
       treePositionRef.current -= 10
       if(treePositionRef.current < -300) {
-        treePositionRef.current = 1000
+        treePositionRef.current = 500
       }
 
       setCloudPositionX(cloud_position_xRef.current);
