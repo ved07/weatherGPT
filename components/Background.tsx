@@ -15,8 +15,8 @@ export const Background = ({ children } : BackgroundProps) => {
   const sunposition_xRef = useRef(0)
   const [cloud_position_x, setCloudPositionX] = useState(66)
   const cloud_position_xRef = useRef(66)
-  const [cloud_position_y, setCloudPositionY] = useState(0)
-  const cloud_position_yRef = useRef(0)
+  const [cloud_position_y, setCloudPositionY] = useState(-100)
+  const cloud_position_yRef = useRef(-100)
 
   const tmp = useRef(0);
   const tmp2 = useRef(0);
