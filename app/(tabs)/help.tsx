@@ -10,7 +10,7 @@ import { styles } from "@/constants/styles";
 export default function HelpScreen() {
   return (
     <Background>
-      <View>
+      <View style = {{top: 70}}>
         <TextBlog text = {"HELP"} hidden = {""} />
         <TextBlog text = {"FAQs"} hidden = {""} />
         <TextBlog text = {"How do I input my location?"} hidden = {""} />
