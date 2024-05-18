@@ -40,8 +40,8 @@ export default function HomeScreen() {
       <View style={{
         width: "100%",
         height: "100%",
-        paddingTop: 360,
-        paddingBottom: 10,
+        paddingBottom: "10%",
+        paddingTop: "100%",
       }} className="flex flex-col items-center justify-between">
         <Banner method={plan.method} />
         <View className="flex flex-col">
