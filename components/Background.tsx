@@ -78,7 +78,7 @@ export const Background = ({ children } : BackgroundProps) => {
             }}
           />
           <Image
-            source={require('./../assets/cloud.png')}
+            source={require('./../assets/cloud2.png')}
             style={{
               left:cloud_position_x,
               top: cloud_position_y,
@@ -86,6 +86,7 @@ export const Background = ({ children } : BackgroundProps) => {
               flex: 2, 
               resizeMode: 'contain', 
               aspectRatio: 3,
+              height: "auto"
             }}
           />
           <Image

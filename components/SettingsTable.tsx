@@ -11,15 +11,15 @@ interface stitem {
 }
 
 /* */
-const settingsTable: React.FC = () => {
+const SettingsTable: React.FC = () => {
     const [stData, setStData] = useState<stitem[]>([
-        { id: '1', day: 'Monday', startTime: '08:00', endTime: '16:00', location: 'Office', ticked: true },
-  { id: '2', day: 'Tuesday', startTime: '08:00', endTime: '16:00', location: 'Home', ticked: true },
-  { id: '3', day: 'Wednesday', startTime: '08:00', endTime: '16:00', location: 'Gym', ticked: true },
-  { id: '4', day: 'Thursday', startTime: '08:00', endTime: '16:00', location: 'Client Site', ticked: true },
-  { id: '5', day: 'Friday', startTime: '08:00', endTime: '16:00', location: 'Coffee Shop', ticked: true },
-  { id: '6', day: 'Saturday', startTime: '10:00', endTime: '14:00', location: 'Weekend Market', ticked: true },
-  { id: '7', day: 'Sunday', startTime: '12:00', endTime: '18:00', location: 'Beach', ticked: true }
+        { id: '1', day: 'Mon', startTime: '08:00', endTime: '16:00', location: 'Office', ticked: true },
+        { id: '2', day: 'Tue', startTime: '08:00', endTime: '16:00', location: 'Home', ticked: true },
+        { id: '3', day: 'Wed', startTime: '08:00', endTime: '16:00', location: 'Gym', ticked: true },
+        { id: '4', day: 'Thu', startTime: '08:00', endTime: '16:00', location: 'Client Site', ticked: true },
+        { id: '5', day: 'Fri', startTime: '08:00', endTime: '16:00', location: 'Coffee Shop', ticked: true },
+        { id: '6', day: 'Sat', startTime: '10:00', endTime: '14:00', location: 'Weekend Market', ticked: true },
+        { id: '7', day: 'Sun', startTime: '12:00', endTime: '18:00', location: 'Beach', ticked: true }
     ])
     
     const handleCheckboxChange = (index: number) => {
@@ -49,9 +49,10 @@ const settingsTable: React.FC = () => {
         <View style={styles.item}>
           <Text style={styles.cell}>{item.day}</Text>
           <BouncyCheckbox
-          isChecked={item.ticked}
-          onPress={() => handleCheckboxChange(index)}
-        />          <TextInput
+            isChecked={item.ticked}
+            onPress={() => handleCheckboxChange(index)}
+          />
+          <TextInput
             style={styles.input}
             value={item.startTime}
             onChangeText={(text) => handleTimeChange(text, index)}
@@ -75,11 +76,11 @@ const settingsTable: React.FC = () => {
     
       return (
         <View style={styles.container}>
-          <FlatList
-            data={stData}
-            renderItem={renderitem}
-            keyExtractor={(item, index) => item.id}
-          />
+            <FlatList
+              data={stData}
+              renderItem={renderitem}
+              keyExtractor={(item, index) => item.id}
+            />
         </View>
       );
     
@@ -88,26 +89,29 @@ const settingsTable: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 5,
   },
   item: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     marginBottom: 10,
+    paddingHorizontal: 5, // Add horizontal padding
+    paddingVertical: 10, // Add vertical padding
   },
   cell: {
     flex: 1,
     fontSize: 16,
   },
   input: {
-    flex: 1,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    paddingHorizontal: 10,
+    flex: 1,
     height: 40,
+    paddingHorizontal: 10,
+    width: "50%"
   },
 });
 
-export default settingsTable;
+export default SettingsTable;

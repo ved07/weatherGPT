@@ -5,6 +5,7 @@ import SettingSlider from "@/components/SettingSlider"
 import TimeSwitch from "@/components/24HourTimeSwitch"
 import {styles} from "@/constants/styles";
 import { useSettings } from "@/hooks/useSettings";
+import SettingsTable from "@/components/SettingsTable";
 
 export default function SettingsScreen() {
   const {settings, loading, setSettings} = useSettings()
@@ -26,7 +27,7 @@ export default function SettingsScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 30 }}>
+    <SafeAreaView style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 30}}>
       <View>
         <Text style={styles.exo2RegularText}>Settings</Text>
       
@@ -39,11 +40,9 @@ export default function SettingsScreen() {
         <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>
       </View>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'center', margin: 20 }}>
-        <Text style={styles.exo2RegularText}>Enable 24 hour time</Text>
-        <TimeSwitch />
+      <View style={{paddingTop: 60}}>
+        <SettingsTable/>
       </View>
-      
     </SafeAreaView>
   );
 }
