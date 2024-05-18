@@ -1,5 +1,5 @@
 import { styles } from "@/constants/styles";
-import { View, Text, StyleProp, ViewStyle } from "react-native";
+import {View, Text, StyleProp, ViewStyle, Image} from "react-native";
 
 export interface LocationTime {
   location: string;
@@ -7,7 +7,7 @@ export interface LocationTime {
 }
 
 const LocationTimeDisplay = ({location, time}: LocationTime) => (
-  <View className="flex flex-col items-center justify-center bg-gray-50 w-32 h-32">
+  <View className="flex flex-col items-center justify-center bg-gray-100 w-32 h-32">
     <View><Text className="text-center">{location}</Text></View>
     <View><Text className="text-lg">{time}</Text></View>
   </View>
@@ -28,10 +28,16 @@ export const TripCard = ({
 }) => {
   
   return (
-    <View style={style} className="flex flex-row justify-between bg-white">
+    <View style={style} className="flex flex-row justify-between items-center bg-white">
       <LocationTimeDisplay {...start} />
-      <View>
+      <View className="items-center p-4">
+        <Image
+          source = {require('./../assets/thermometer.png')}
+        />
         <Text>{temperature.toFixed(1)}°C</Text>
+        <Image
+          source = {require('./../assets/rainycloud.png')}
+        />
         <Text>{rainfall.toFixed(1)}mm</Text>
       </View>
       <LocationTimeDisplay {...end} />
