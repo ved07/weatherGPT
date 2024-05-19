@@ -47,7 +47,7 @@ export const TripCard = ({
           source = {require('./../assets/rainycloud.png')}
           style = {{ aspectRatio: 1, width: '30%', height: "auto"}}
         />
-        <Text>{(rainfall || 0).toFixed(1)}mm</Text>
+        <Text>{(rainfall || 0).toFixed(1)}%</Text>
       </View>
       <LocationTimeDisplay {...end} />
     </View>

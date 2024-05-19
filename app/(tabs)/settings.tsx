@@ -16,13 +16,13 @@ export default function SettingsScreen() {
   const saveSettings = () => {
     setSettings({
       ...settings,
-      rainfallTolerance: rainfall,
+      rainfallTolerance: parseFloat((rainfall).toFixed(1)),
       temperatureTolerance: parseFloat((temperature - 10.0).toFixed(1))
     })
   }
 
   useEffect(() => {
-    setRainfall(settings.rainfallTolerance)
+    setRainfall(parseFloat((settings.rainfallTolerance).toFixed(1)))
     setTemperature(parseFloat((settings.temperatureTolerance + 10.0).toFixed(1)))
   }, [loading])
 
@@ -35,7 +35,7 @@ export default function SettingsScreen() {
       
         <Text>Temperature: {(temperature - 10.0).toFixed(1)}°C</Text>
         <SettingSlider initialValue={temperature} step={0.1} setInputValue={setTemperature} onFinish={saveSettings} minInputLimit={0} maxInputLimit={50}/>
-        <Text>Rainfall: {rainfall}mm</Text>
+        <Text>Rainfall: {rainfall.toFixed(1)}%</Text>
         <SettingSlider initialValue={rainfall} step={0.1} setInputValue={setRainfall} onFinish={saveSettings} minInputLimit={0} maxInputLimit={100}/>
         
         <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>

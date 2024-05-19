@@ -1,6 +1,5 @@
 import { Text, Button, View, Image, StyleSheet } from "react-native";
 import { Children, ReactNode, useEffect, useRef, useState } from "react";
-import { Directions } from "react-native-gesture-handler";
 
 interface BackgroundProps {
     children: ReactNode;
