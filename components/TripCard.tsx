@@ -30,25 +30,24 @@ export const TripCard = ({
   rainfall: number
   style?: StyleProp<ViewStyle>
 }) => {
-  
   return (
     <View style={style} className="flex flex-row justify-between items-center bg-white">
       <LocationTimeDisplay {...start} />
-      <View className="items-center p-4">
+      <View className="items-center p-1 h-32 w-24">
         <Image
           source = {require('./../assets/rightarrow.png')}
-          style = {{ aspectRatio: 1, width: '50%', height: "auto"}}
+          style = {{ aspectRatio: 1, width: '30%', height: "auto"}}
         />
         <Image
           source = {require('./../assets/thermometer.png')}
-          style = {{ aspectRatio: 1, width: '50%', height: "auto"}}
+          style = {{ aspectRatio: 1, width: '30%', height: "auto"}}
         />
-        <Text>{temperature.toFixed(1)}°C</Text>
+        <Text>{(temperature || 0).toFixed(1)}°C</Text>
         <Image
           source = {require('./../assets/rainycloud.png')}
-          style = {{ aspectRatio: 1, width: '50%', height: "auto"}}
+          style = {{ aspectRatio: 1, width: '30%', height: "auto"}}
         />
-        <Text>{rainfall.toFixed(1)}mm</Text>
+        <Text>{(rainfall || 0).toFixed(1)}mm</Text>
       </View>
       <LocationTimeDisplay {...end} />
     </View>

@@ -49,8 +49,6 @@ export const Background = ({ children } : BackgroundProps) => {
       sunposition_xRef.current += tmp.current;
       setSunPositionX(sunposition_xRef.current);
 
-      console.log()
-
       setTimeout(rerender, 50)
     }
 

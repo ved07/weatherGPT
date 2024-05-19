@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 interface Settings {
   temperatureTolerance: number;
@@ -7,10 +7,16 @@ interface Settings {
   use24hrTime: boolean;
 }
 
-const defaultSettings = {
+export const defaultSettings = {
   temperatureTolerance: 15,
   rainfallTolerance: 40,
   use24hrTime: false,
+}
+
+export const defaultSettingsContext = {
+  settings: defaultSettings,
+  loading: true,
+  setSettings: async (value: Settings) => {}
 }
 
 export const useSettings = () => {
@@ -45,3 +51,5 @@ export const useSettings = () => {
     setSettings
   };
 };
+
+export const SettingsContext = createContext<{settings: Settings, loading: boolean, setSettings: (value: Settings) => Promise<void>} | undefined>(undefined);

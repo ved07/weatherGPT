@@ -10,7 +10,9 @@ import { styles } from "@/constants/styles";
 export default function HelpScreen() {
   return (
     <Background>
-      <View style = {{top: 70}}>
+      <View style={{
+        paddingTop: "50%",
+      }}>
         <TextBlog text = {"FAQs"} hidden = {"Take a look at some of our frequently asked questions! We're here to help."} />
         <TextBlog text = {"How do I input my location?"} hidden = {"Press the button labelled 'settings' at the bottom of the screen -> press the search bar labelled 'set location' on top of the map -> tap in your location -> submit."} />
         <TextBlog text = {"What does setting thresholds do?"} hidden = {"Your temperature threshold is the minimum temperature you would be willing to cycle in. Your precipitation threshold is the maximum level of rainfall you would be willing to cycle in."} />

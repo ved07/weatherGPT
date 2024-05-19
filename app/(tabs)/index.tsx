@@ -2,10 +2,11 @@ import { LocationTime, TripCard } from "@/components/TripCard";
 import { Background } from "@/components/Background";
 import { useCurrentTime } from "@/hooks/useCurrentTime";
 import { Plan, usePlanner } from "@/hooks/usePlanner";
-import { useSettings } from "@/hooks/useSettings";
+import { SettingsContext, useSettings } from "@/hooks/useSettings";
 import { useWeather } from "@/hooks/useWeather";
 import { ActivityIndicator, Image, TextStyle, SafeAreaView, StyleSheet, Text, View, StyleProp, ViewStyle } from "react-native";
 import { styles } from "@/constants/styles";
+import { useContext } from "react";
 
 const Banner = ({
   method,
@@ -30,10 +31,13 @@ const Banner = ({
 }
 
 export default function HomeScreen() {
-  const {settings, loading} = useSettings()
+  const {loading} = useContext(SettingsContext) || {loading: true}
   const plan = usePlanner()
 
-  if (loading) return <SafeAreaView className="flex items-center justify-center"><ActivityIndicator /></SafeAreaView>
+  console.log("home rerendering")
+
+  if (loading || !plan) return <SafeAreaView className="flex items-center justify-center"><ActivityIndicator /></SafeAreaView>
+  console.log(plan)
 
   return (
     <Background>

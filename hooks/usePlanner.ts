@@ -1,6 +1,6 @@
-import { useMemo } from "react";
-import { useWeather } from "./useWeather";
-import { useSettings } from "./useSettings";
+import { useContext, useMemo } from "react";
+import { WeatherContext, defaultWeatherContext, useWeather } from "./useWeather";
+import { SettingsContext, defaultSettings, defaultSettingsContext, useSettings } from "./useSettings";
 
 export interface Plan {
   method: string;
@@ -19,39 +19,45 @@ export interface Plan {
 }
 
 export const usePlanner = (): Plan => {
-  // fetch weather data
-  let weatherData = useWeather();
-  const {settings, loading, setSettings} = useSettings()
-
-  let toIndex = 0;
-  let backIndex = 1;
-
-  let toJourney = {
-    startTime: weatherData.timestamps[toIndex],
-    endTime: weatherData.timestamps[toIndex],
-    rainfall: weatherData.rainfall[toIndex],
-    temperature: weatherData.temperature[toIndex]
-  }
-  
-  let backJourney = {
-    startTime: weatherData.timestamps[backIndex],
-    endTime: weatherData.timestamps[backIndex],
-    rainfall: weatherData.rainfall[backIndex],
-    temperature: weatherData.temperature[backIndex]
-  }
-
-  let method = (toJourney.rainfall <= settings.rainfallTolerance && toJourney.temperature <= settings.temperatureTolerance &&
-      backJourney.rainfall <= settings.rainfallTolerance && backJourney.temperature <= settings.temperatureTolerance) ? "cycle" : "walk";
+  const {
+    weather: {
+      timestamps,
+      rainfall,
+      temperature
+    },
+    loading: weatherLoading,
+  } = useContext(WeatherContext) || defaultWeatherContext;
+  const { settings } = useContext(SettingsContext) || defaultSettingsContext;
   
   const plan = useMemo(() => {
-    // do calculation
+    const toIndex = 0;
+    const backIndex = 1;
+
+    const toJourney = {
+      startTime: timestamps[toIndex],
+      endTime: timestamps[toIndex],
+      rainfall: rainfall[toIndex],
+      temperature: temperature[toIndex]
+    }
+    
+    const backJourney = {
+      startTime: timestamps[backIndex],
+      endTime: timestamps[backIndex],
+      rainfall: rainfall[backIndex],
+      temperature: temperature[backIndex]
+    }
+
+    const method = (toJourney.rainfall <= settings.rainfallTolerance && toJourney.temperature >= settings.temperatureTolerance &&
+      backJourney.rainfall <= settings.rainfallTolerance && backJourney.temperature >= settings.temperatureTolerance) ? "cycle" : "walk";
+    
+    console.log(method)
+
     return {
-      // method: method.toString() + JSON.stringify(toJourney) + JSON.stringify(backJourney) + JSON.stringify(settings),
       method: method,
       toJourney: toJourney,
       backJourney: backJourney
     }
-  }, [])
+  }, [timestamps, rainfall, temperature, JSON.stringify(settings)])
 
   return plan
 }
