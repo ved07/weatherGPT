@@ -62,7 +62,7 @@ export default function HomeScreen() {
   if (loading || !plan) return <SafeAreaView className="flex items-center justify-center"><ActivityIndicator /></SafeAreaView>
 
   return (
-    <Background>
+    <Background plan={plan}>
       <View style={{
         width: "100%",
         height: "100%",

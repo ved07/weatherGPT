@@ -6,10 +6,12 @@ import { LinearTransition } from "react-native-reanimated";
 import { LinearGradient } from 'react-native-linear-gradient';
 import { Children, ReactNode } from "react";
 import { styles } from "@/constants/styles";
+import { usePlanner } from "@/hooks/usePlanner";
 
 export default function HelpScreen() {
+  const plan = usePlanner()
   return (
-    <Background>
+    <Background plan={plan}>
       <View style={{
         paddingTop: "50%",
       }}>

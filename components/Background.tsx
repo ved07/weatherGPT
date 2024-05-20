@@ -1,11 +1,15 @@
 import { Text, Button, View, Image, StyleSheet } from "react-native";
 import { Children, ReactNode, useEffect, useRef, useState } from "react";
+import { Subject } from "./Subject";
+import { Cloud } from "./Cloud";
+import { Plan } from "@/hooks/usePlanner";
 
 interface BackgroundProps {
     children: ReactNode;
+    plan: Plan
 }
 
-export const Background = ({ children } : BackgroundProps) => {
+export const Background = ({ children, plan } : BackgroundProps) => {
   const [cyclist_position, setCyclistPosition] = useState(100)
   const cyclistPositionRef = useRef(99)
   const [tree_position, setTreePosition] = useState(0)
@@ -20,8 +24,13 @@ export const Background = ({ children } : BackgroundProps) => {
   const tmp = useRef(0);
   const tmp2 = useRef(0);
 
+  const subject = plan.method
+  const weather = plan.toJourney.rainfall >= 10 ? 'raining' : 'cloud'
+
   useEffect(() => {
     const rerender = () => {
+
+
       setCyclistPosition(cyclistPositionRef.current);
       if(cyclistPositionRef.current < 100) {
         tmp2.current = 1
@@ -74,18 +83,7 @@ export const Background = ({ children } : BackgroundProps) => {
               position: "absolute"
             }}
           />
-          <Image
-            source={require('./../assets/cloud2.png')}
-            style={{
-              left:cloud_position_x,
-              top: cloud_position_y,
-              marginLeft: 1, 
-              flex: 2, 
-              resizeMode: 'contain', 
-              aspectRatio: 3,
-              height: "auto"
-            }}
-          />
+          <Cloud weather = {weather} cloud_position_x = {cloud_position_x} cloud_position_y = {cloud_position_y}/>
           <Image
             source = {require('./../assets/tree.png')}
             style = {{
@@ -94,14 +92,7 @@ export const Background = ({ children } : BackgroundProps) => {
               top: 100
             }}
           />
-          <Image
-            source = {require('./../assets/cyclist.png')}
-            style = {{
-              left: cyclist_position,
-              position: "absolute",
-              top: 160
-            }}
-          />
+          <Subject subject = {subject} cyclist_position = {cyclist_position} />
           <Image
             source = {require('./../assets/road.png')}
             style = {{
