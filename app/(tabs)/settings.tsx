@@ -38,9 +38,8 @@ export default function SettingsScreen() {
         <Text>Rainfall: {rainfall.toFixed(1)}%</Text>
         <SettingSlider initialValue={rainfall} step={0.1} setInputValue={setRainfall} onFinish={saveSettings} minInputLimit={0} maxInputLimit={100}/>
         
-        <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>
-
-        <TimeSwitch onChange={(value) => setSettings({...settings, use24hrTime: value})} />
+        <Text>Use 24 Hour time?</Text>
+        <TimeSwitch defaultValue={settings.use24hrTime} onChange={(value) => setSettings({...settings, use24hrTime: value})} />
       </View>
 
       <View style={{paddingTop: 60}}>

@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {View, Switch, StyleSheet, Text} from 'react-native';
 import {styles} from "@/constants/styles";
 
-export const TimeSwitch = ({ onChange }: {
+export const TimeSwitch = ({ onChange, defaultValue }: {
   onChange: (value: boolean) => void;
+  defaultValue?: boolean;
 }) => {
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(defaultValue || false);
   const toggleSwitch = () => {
     onChange(!isEnabled)
     setIsEnabled(previousState => !previousState)
