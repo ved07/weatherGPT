@@ -82,7 +82,7 @@ export default function SettingsScreen() {
       </View>
 
       <View>
-        <SettingsTable/>
+        <SettingsTable startingValue={settings.settingsTable} onSave={onTableSave}/>
       </View>
     </SafeAreaView>
   );

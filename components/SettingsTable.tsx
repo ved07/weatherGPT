@@ -45,43 +45,37 @@ const SettingsTable = ({
     onSave(newStData)
   };
 
-  const renderitem = ({ item, index }: { index: number; item: TableItem }) => (
-    <View style={styles.item}>
-      <Text style={styles.cell}>{daysOfWeek[item.day]}</Text>
-      <BouncyCheckbox
-        isChecked={item.ticked}
-        onPress={() => handleCheckboxChange(index)}
-      />
-      <TextInput
-        style={styles.input}
-        value={item.startTime.toLocaleTimeString()}
-        onChangeText={(text) => handleTimeChange(text, index)}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        value={item.endTime.toLocaleTimeString()}
-        onChangeText={(text) => handleTimeChange(text, index, "e")}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        value={item.location}
-        onChangeText={(text) => handleLocationChange(text, index)}
-        keyboardType="default"
-      />
-    </View>
-  );
-
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={stData}
-        renderItem={renderitem}
-        keyExtractor={(item, index) => index.toString()}
-      />
+    <View>
+      {stData.map((item, index) => (
+        <View key={index} style={styles.item}>
+          <Text style={styles.cell}>{daysOfWeek[item.day]}</Text>
+          <BouncyCheckbox
+            isChecked={item.ticked}
+            onPress={() => handleCheckboxChange(index)}
+          />
+          <TextInput
+            style={styles.input}
+            value={item.startTime.toLocaleTimeString()}
+            onChangeText={(text) => handleTimeChange(text, index)}
+            keyboardType="numeric"
+          />
+          <TextInput
+            style={styles.input}
+            value={item.endTime.toLocaleTimeString()}
+            onChangeText={(text) => handleTimeChange(text, index, "e")}
+            keyboardType="numeric"
+          />
+          <TextInput
+            style={styles.input}
+            value={item.location}
+            onChangeText={(text) => handleLocationChange(text, index)}
+            keyboardType="default"
+          />
+        </View>
+      ))}
     </View>
-  );
+  )
 };
 
 const styles = StyleSheet.create({
@@ -93,9 +87,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 5,
     paddingHorizontal: 5, // Add horizontal padding
-    paddingVertical: 10, // Add vertical padding
+    paddingVertical: 0,
   },
   cell: {
     flex: 1,
@@ -106,8 +100,8 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     flex: 1,
-    height: 40,
-    paddingHorizontal: 10,
+    height: 28,
+    paddingHorizontal: 6,
     width: "50%",
   },
 });
