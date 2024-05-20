@@ -80,7 +80,7 @@ export default function SettingsScreen() {
       </View>
 
       <View>
-        <SettingsTable startingValue={settings.settingsTable} onSave={onTableSave}/>
+        <SettingsTable use24hrTime={settings.use24hrTime} startingValue={settings.settingsTable} onSave={onTableSave}/>
       </View>
     </SafeAreaView>
   );
