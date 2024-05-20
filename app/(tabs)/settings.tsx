@@ -1,4 +1,4 @@
-import { Switch, View, Text } from "react-native";
+import { Switch, StyleSheet, View, Text } from "react-native";
 import React, {useContext, useEffect, useState} from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import SettingSlider from "@/components/SettingSlider"
@@ -9,7 +9,6 @@ import SettingsTable, { TableItem } from "@/components/SettingsTable";
 
 export default function SettingsScreen() {
   const {settings, loading, setSettings} = useContext(SettingsContext) || defaultSettingsContext;
-
   const [rainfall, setRainfall] = useState(0)
   const [temperature, setTemperature] = useState(0)
 
@@ -36,21 +35,54 @@ export default function SettingsScreen() {
   if (loading) return (<View></View>)
 
   return (
-    <SafeAreaView style={{ flexDirection: 'column', justifyContent: 'flex-start', margin: 30}}>
+    <SafeAreaView style={styles.settingsContainer}>
       <View>
-        <Text style={styles.exo2RegularText}>Settings</Text>
-      
-        <Text>Temperature: {(temperature - 10.0).toFixed(1)}°C</Text>
-        <SettingSlider initialValue={temperature} step={0.1} setInputValue={setTemperature} onFinish={saveSettings} minInputLimit={0} maxInputLimit={50}/>
-        <Text>Rainfall: {rainfall.toFixed(1)}%</Text>
-        <SettingSlider initialValue={rainfall} step={0.1} setInputValue={setRainfall} onFinish={saveSettings} minInputLimit={0} maxInputLimit={100}/>
-        
-        <Text>Use 24 Hour time?</Text>
-        <TimeSwitch defaultValue={settings.use24hrTime} onChange={(value) => setSettings({...settings, use24hrTime: value})} />
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Settings</Text>
+        </View>
+
+        <View style={styles.settingsSection}>
+          <View style={styles.sectionBackground}>
+            <View style={styles.switchContainer}>
+              <Text style={styles.label}>Temperature: {(temperature - 10.0).toFixed(1)}°C</Text>
+              <SettingSlider
+                initialValue={temperature}
+                step={0.1}
+                setInputValue={setTemperature}
+                onFinish={saveSettings}
+                minInputLimit={0}
+                maxInputLimit={50}
+              />
+            </View>
+          </View>
+
+          <View style={styles.sectionBackground}>
+            <View style={styles.switchContainer}>
+              <Text style={styles.label}>Rainfall: {rainfall.toFixed(1)}%</Text>
+              <SettingSlider
+                initialValue={rainfall}
+                step={0.1}
+                setInputValue={setRainfall}
+                onFinish={saveSettings}
+                minInputLimit={0}
+                maxInputLimit={100}
+              />
+            </View>
+          </View>
+
+          <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>
+
+          <View style={styles.switchContainer}>
+            <View style={styles.sectionBackground}>
+              <Text style={styles.label}>24-Hour Time</Text>
+              <TimeSwitch onChange={(value) => setSettings({...settings, use24hrTime: value})} />
+            </View>
+          </View>
+        </View>
       </View>
 
-      <View style={{paddingTop: 60}}>
-        <SettingsTable startingValue={settings.settingsTable} onSave={onTableSave} />
+      <View>
+        <SettingsTable/>
       </View>
     </SafeAreaView>
   );

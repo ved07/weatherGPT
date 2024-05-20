@@ -1,38 +1,59 @@
 import { TextStyle, StyleSheet } from "react-native";
-
-export interface Styles {
-  farroBoldText: TextStyle;
-  farroLightText: TextStyle;
-  farroMediumText: TextStyle;
-  farroRegularText: TextStyle;
-  exo2BoldText: TextStyle;
-  exo2RegularText: TextStyle;
-}
-
-export const styles: Styles = StyleSheet.create({
-  farroBoldText: {
-    fontFamily: "Farro-Bold.ttf",
+export const styles = StyleSheet.create({
+  settingsContainer: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  header: {
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eaeaea',
+  },
+  headerText: {
     fontSize: 24,
+    fontWeight: '600',
+    color: '#333333',
   },
-  farroLightText: {
-    fontFamily: "Farro-Light.ttf",
-    fontSize: 24,
+  settingsSection: {
+    marginTop: 10,
   },
-  farroMediumText: {
-    fontFamily: "Farro-Medium.ttf",
-    fontSize: 24,
+  sectionHeader: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#666666',
+    marginBottom: 10,
   },
-  farroRegularText: {
-    fontFamily: "Farro-Regular.ttf",
-    fontSize: 24,
-  },
-  exo2BoldText: {
-    fontFamily: "Exo2-VariableFont_wght.ttf",
-    fontSize: 30,
-    fontWeight: "bold"
-  },
-  exo2RegularText: {
-    fontFamily: "Exo2-VariableFont_wght.ttf",
+  label: {
     fontSize: 16,
+    color: '#333333',
+    paddingVertical: 15,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  sliderContainer: {
+    paddingVertical: 15,
+  },
+  tableSection: {
+    paddingTop: 20,
+  },
+  sliderLabel: {
+    fontSize: 16,
+    color: '#333333',
+  },
+  sectionBackground: {
+    flex: 1,
+    backgroundColor: '#f5f5f5', // Very light grey background
+    paddingHorizontal: 20,
+    marginTop: 10,
+    borderRadius: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#eaeaea',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eaeaea',
   },
 });
