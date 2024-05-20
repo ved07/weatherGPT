@@ -23,6 +23,13 @@ export const defaultSettingsContext = {
   setSettings: async (value: Settings) => {}
 }
 
+const dateTimeReviver = (key: string, value: any) => {
+  if (key === 'startTime' || key === 'endTime') {
+    return new Date(value);
+  }
+  return value;
+}
+
 export const useSettings = () => {
   const [settings, setSettingsState] = useState<Settings>(defaultSettings);
   const [loading, setLoading] = useState(true);
@@ -31,7 +38,7 @@ export const useSettings = () => {
     const loadSettings = async () => {
       try {
         const jsonValue = await AsyncStorage.getItem('settings');
-        const settings = jsonValue != null ? JSON.parse(jsonValue) : defaultSettings;
+        const settings = jsonValue != null ? JSON.parse(jsonValue, dateTimeReviver) : defaultSettings;
         setSettingsState(settings);
       } catch (error) {
         console.error('Failed to load settings', error);
