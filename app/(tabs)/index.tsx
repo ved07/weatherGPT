@@ -1,6 +1,6 @@
 import { LocationTime, TripCard } from "@/components/TripCard";
 import { Background } from "@/components/Background";
-import { useCurrentTime } from "@/hooks/useCurrentTime";
+import { getDayOfWeek, useCurrentTime } from "@/hooks/useCurrentTime";
 import { Plan, usePlanner } from "@/hooks/usePlanner";
 import { SettingsContext, useSettings } from "@/hooks/useSettings";
 import { useWeather } from "@/hooks/useWeather";
@@ -17,7 +17,20 @@ const Banner = ({
   style?: StyleProp<ViewStyle>
 }) => {
   const currentTime = useCurrentTime()
+  const currentWeekDay = getDayOfWeek(currentTime)
   const {settings, loading} = useContext(SettingsContext) || {loading: true}
+
+  if (settings?.settingsTable[currentWeekDay]?.ticked === false) {
+    return (
+      <View style={style} className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center items-center">
+        <Text>You're off today!</Text>
+        <Image
+          source={require('./../../assets/checkmark.png')}
+          style={{ width: 24, height: 24, marginLeft: 20}}
+        />
+      </View>
+    )
+  } else
 
   if (currentTime > plan.toJourney.endTime && currentTime > plan.backJourney.endTime) {
     return (
@@ -56,8 +69,7 @@ export default function HomeScreen() {
   const {settings, loading} = useContext(SettingsContext) || {loading: true}
   const plan = usePlanner()
   const currentTime = useCurrentTime()
-
-  const currentWeekDay = currentTime.getDay()
+  const currentWeekDay = getDayOfWeek(currentTime)
 
   if (loading || !plan) return <SafeAreaView className="flex items-center justify-center"><ActivityIndicator /></SafeAreaView>
 
@@ -70,7 +82,7 @@ export default function HomeScreen() {
         paddingTop: "100%",
       }} className="flex flex-col items-center justify-between">
         <Banner plan={plan} />
-        <View className="flex flex-col">
+        {settings.settingsTable[currentWeekDay].ticked && <View className="flex flex-col">
           <TripCard
             disabled={currentTime > plan.toJourney.endTime}
             temperature={plan.toJourney.temperature}
@@ -80,7 +92,7 @@ export default function HomeScreen() {
               time: formatTime(plan.toJourney.startTime, settings.use24hrTime)
             }}
             end={{
-              location: "USE TABLE DATA",
+              location: settings.settingsTable[currentWeekDay].location,
               time: formatTime(plan.toJourney.endTime, settings.use24hrTime)
             }}
           />
@@ -90,7 +102,7 @@ export default function HomeScreen() {
             temperature={plan.backJourney.temperature}
             rainfall={plan.backJourney.rainfall}
             start={{
-              location: "USE TABLE DATA",
+              location: settings.settingsTable[currentWeekDay].location,
               time: formatTime(plan.backJourney.startTime, settings.use24hrTime)
             }}
             end={{
@@ -98,7 +110,7 @@ export default function HomeScreen() {
               time: formatTime(plan.backJourney.endTime, settings.use24hrTime)
             }}
           />
-        </View>
+        </View>}
       </View>
     </Background>
   );
