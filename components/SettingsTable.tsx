@@ -1,5 +1,5 @@
 import { daysOfWeek, defaultTable } from "@/constants/defaultSettings";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import RNDateTimePicker, {
@@ -14,6 +14,25 @@ export interface TableItem {
   location: string;
   ticked: boolean;
   cycleTime: number;
+}
+
+const CycleTimeInput = ({ defaultValue, onBlur }: { defaultValue: number; onBlur: (value: number) => void }) => {
+  const [value, setValue] = useState((defaultValue || 0).toString());
+
+  useEffect(() => {
+    setValue((defaultValue || 0).toString());
+  }, [defaultValue]);
+
+  return (
+    <TextInput
+      className="px-1 h-6 py-1"
+      style={styles.input}
+      value={value}
+      onChangeText={(text) => setValue(text)}
+      onBlur={() => onBlur(parseInt(value))}
+      keyboardType="number-pad"
+    />
+  );
 }
 
 const SettingsTable = ({
@@ -81,6 +100,7 @@ const SettingsTable = ({
               opacity: 1,
               borderRadius: 10,
             }}
+            textColor="black"
             value={stData[day][startEndFlag == "s" ? "startTime" : "endTime"]}
             mode="time"
             display="spinner"
@@ -146,18 +166,12 @@ const SettingsTable = ({
               keyboardType="default"
             />
             <View className="w-10 h-7">
-              <TextInput
-                className="px-1 h-6 py-1"
-                style={styles.input}
-                value={item.cycleTime.toString()}
-                onChangeText={(text) => {
-                  const newStData = [...stData];
-                  newStData[index].cycleTime = parseInt(text);
-                  setStData(newStData);
-                  onSave(newStData);
-                }}
-                keyboardType="number-pad"
-              />
+              <CycleTimeInput defaultValue={item.cycleTime} onBlur={(value) => {
+                const newStData = [...stData];
+                newStData[index].cycleTime = value;
+                setStData(newStData);
+                onSave(newStData);
+              }} />
             </View>
           </View>
         ))}
