@@ -20,7 +20,8 @@ export const Cloud = ({
                 flex: 2, 
                 resizeMode: 'contain', 
                 aspectRatio: 1.5,
-                height: "auto"
+                height: "auto",
+                zIndex:1
             }}
           />
         )
@@ -35,7 +36,8 @@ export const Cloud = ({
               flex: 2, 
               resizeMode: 'contain', 
               aspectRatio: 3,
-              height: "auto"
+              height: "auto",
+              zIndex:1
             }}
           />
         )

@@ -25,7 +25,7 @@ export const Background = ({ children, plan } : BackgroundProps) => {
   const tmp2 = useRef(0);
 
   const subject = plan.method
-  const weather = plan.toJourney.rainfall >= 10 ? 'raining' : 'cloud'
+  const weather = plan.toJourney.rainfall >= 20 ? 'raining' : 'cloud'
 
   useEffect(() => {
     const rerender = () => {
@@ -89,7 +89,7 @@ export const Background = ({ children, plan } : BackgroundProps) => {
             style = {{
               left: tree_position,
               position: "absolute",
-              top: 100
+              top: 100,
             }}
           />
           <Subject subject = {subject} cyclist_position = {cyclist_position} />
