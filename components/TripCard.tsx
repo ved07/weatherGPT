@@ -22,16 +22,19 @@ export const TripCard = ({
   rainfall,
   start,
   end,
-  style
+  style,
+  disabled=false
 }: {
   temperature: number,
   start: LocationTime,
   end: LocationTime,
   rainfall: number
-  style?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>,
+  disabled: boolean
 }) => {
   return (
-    <View style={style} className="flex flex-row justify-between items-center bg-white">
+    <View style={style} className="relative flex flex-row justify-between items-center bg-white">
+      {disabled && <View className="absolute z-10 bg-black opacity-20 w-full h-full" />}
       <LocationTimeDisplay {...start} />
       <View className="items-center p-1 h-32 w-24">
         <Image

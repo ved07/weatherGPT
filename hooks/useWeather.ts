@@ -29,14 +29,16 @@ export const useWeather = () => {
     const temperature: number[] = [];
 
     const now = new Date();
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(now);
     endOfDay.setHours(23, 59, 59, 999);
 
     const timeEnd = endOfDay.getTime();
     
-    for (let timeNow = now.getTime(); timeNow <= timeEnd; timeNow += 1*60*1000) {
+    for (let t = startOfDay.getTime(); t <= timeEnd; t += 60*60*1000) {
       let timestamp = new Date(now);
-      timestamp.setTime(timeNow);
+      timestamp.setTime(t);
       timestamps.push(timestamp);
       rainfall.push(randInInterval(rainLow,rainHigh));
       temperature.push(randInInterval(tempLow,tempHigh));

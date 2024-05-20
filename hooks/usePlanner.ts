@@ -18,6 +18,22 @@ export interface Plan {
   }
 }
 
+const defaultPlan: Plan = {
+  method: "walk",
+  toJourney: {
+    startTime: new Date(),
+    endTime: new Date(),
+    rainfall: 0,
+    temperature: 0
+  },
+  backJourney: {
+    startTime: new Date(),
+    endTime: new Date(),
+    rainfall: 0,
+    temperature: 0
+  }
+}
+
 export const usePlanner = (): Plan => {
   const {
     weather: {
@@ -30,19 +46,21 @@ export const usePlanner = (): Plan => {
   const { settings } = useContext(SettingsContext) || defaultSettingsContext;
   
   const plan = useMemo(() => {
-    const toIndex = 0;
-    const backIndex = 1;
+    const toIndex = 8;
+    const backIndex = 17;
+
+    if (weatherLoading || !timestamps.length) return defaultPlan;
 
     const toJourney = {
       startTime: timestamps[toIndex],
-      endTime: timestamps[toIndex],
+      endTime: new Date(timestamps[toIndex].getTime() + 30*60*1000),
       rainfall: rainfall[toIndex],
       temperature: temperature[toIndex]
     }
     
     const backJourney = {
       startTime: timestamps[backIndex],
-      endTime: timestamps[backIndex],
+      endTime: new Date(timestamps[backIndex].getTime() + 30*60*1000),
       rainfall: rainfall[backIndex],
       temperature: temperature[backIndex]
     }

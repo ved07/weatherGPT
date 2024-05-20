@@ -10,18 +10,39 @@ import { useContext } from "react";
 import { formatTime } from "@/utils/time";
 
 const Banner = ({
-  method,
+  plan,
   style
 }: {
-  method: string
+  plan: Plan,
   style?: StyleProp<ViewStyle>
 }) => {
+  const currentTime = useCurrentTime()
+  const {settings, loading} = useContext(SettingsContext) || {loading: true}
+
+  if (currentTime > plan.toJourney.endTime && currentTime > plan.backJourney.endTime) {
+    return (
+      <View style={style} className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center items-center">
+        <Text>You're done for today!</Text>
+        <Image
+          source={require('./../../assets/checkmark.png')}
+          style={{ width: 24, height: 24, marginLeft: 20}}
+        />
+      </View>
+    )
+  } else if (currentTime > plan.toJourney.endTime) {
+    return (
+      <View style={style} className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center items-center">
+        <Text>Next up: {plan.method} home at {formatTime(plan.backJourney.startTime, settings?.use24hrTime)}!</Text>
+      </View>
+    )
+  }
+
   return (
     <View style={style} className="bg-white rounded-full py-2 w-[90%] flex flex-row justify-center items-center">
-      {method === 'cycle' ? (
-        <Text>You're good to {method}!</Text>
+      {plan.method === 'cycle' ? (
+        <Text>You're good to {plan.method}!</Text>
       ) : (
-        <Text>You'll have to {method} today!</Text>
+        <Text>You'll have to {plan.method} today.</Text>
       )}
       <Image
         source={require('./../../assets/checkmark.png')}
@@ -34,11 +55,9 @@ const Banner = ({
 export default function HomeScreen() {
   const {settings, loading} = useContext(SettingsContext) || {loading: true}
   const plan = usePlanner()
-
-  console.log("home rerendering")
+  const currentTime = useCurrentTime()
 
   if (loading || !plan) return <SafeAreaView className="flex items-center justify-center"><ActivityIndicator /></SafeAreaView>
-  console.log(plan)
 
   return (
     <Background>
@@ -48,9 +67,10 @@ export default function HomeScreen() {
         paddingBottom: "10%",
         paddingTop: "100%",
       }} className="flex flex-col items-center justify-between">
-        <Banner method={plan.method} />
+        <Banner plan={plan} />
         <View className="flex flex-col">
           <TripCard
+            disabled={currentTime > plan.toJourney.endTime}
             temperature={plan.toJourney.temperature}
             rainfall={plan.toJourney.rainfall}
             start={{
@@ -63,6 +83,7 @@ export default function HomeScreen() {
             }}
           />
           <TripCard
+            disabled={currentTime > plan.backJourney.endTime}
             style={{ marginTop: 20 }}
             temperature={plan.backJourney.temperature}
             rainfall={plan.backJourney.rainfall}

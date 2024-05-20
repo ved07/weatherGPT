@@ -10,7 +10,7 @@ function formatTime(date: Date, use24Hour: boolean = false): string {
       const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
       hours = hours ? hours : 12;
-      return `${hours}:${minutes} ${ampm}`;
+      return `${hours}:${minuteString} ${ampm}`;
   }
 }
 
