@@ -7,6 +7,7 @@ import { useWeather } from "@/hooks/useWeather";
 import { ActivityIndicator, Image, TextStyle, SafeAreaView, StyleSheet, Text, View, StyleProp, ViewStyle } from "react-native";
 import { styles } from "@/constants/styles";
 import { useContext } from "react";
+import { formatTime } from "@/utils/time";
 
 const Banner = ({
   method,
@@ -31,7 +32,7 @@ const Banner = ({
 }
 
 export default function HomeScreen() {
-  const {loading} = useContext(SettingsContext) || {loading: true}
+  const {settings, loading} = useContext(SettingsContext) || {loading: true}
   const plan = usePlanner()
 
   console.log("home rerendering")
@@ -54,11 +55,11 @@ export default function HomeScreen() {
             rainfall={plan.toJourney.rainfall}
             start={{
               location: "Home",
-              time: "8:32"
+              time: formatTime(plan.toJourney.startTime, settings.use24hrTime)
             }}
             end={{
-              location: "Chemistry Lab",
-              time: "9:00"
+              location: "USE TABLE DATA",
+              time: formatTime(plan.toJourney.endTime, settings.use24hrTime)
             }}
           />
           <TripCard
@@ -66,12 +67,12 @@ export default function HomeScreen() {
             temperature={plan.backJourney.temperature}
             rainfall={plan.backJourney.rainfall}
             start={{
-              location: "Chemistry Lab",
-              time: "17:00"
+              location: "USE TABLE DATA",
+              time: formatTime(plan.backJourney.startTime, settings.use24hrTime)
             }}
             end={{
               location: "Home",
-              time: "17:28"
+              time: formatTime(plan.backJourney.endTime, settings.use24hrTime)
             }}
           />
         </View>

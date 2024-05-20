@@ -2,7 +2,7 @@ import { Switch, View, Text } from "react-native";
 import React, {useContext, useEffect, useState} from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import SettingSlider from "@/components/SettingSlider"
-import TimeSwitch from "@/components/24HourTimeSwitch"
+import { TimeSwitch } from "@/components/24HourTimeSwitch"
 import {styles} from "@/constants/styles";
 import { SettingsContext, defaultSettingsContext, useSettings } from "@/hooks/useSettings";
 import SettingsTable from "@/components/SettingsTable";
@@ -39,6 +39,8 @@ export default function SettingsScreen() {
         <SettingSlider initialValue={rainfall} step={0.1} setInputValue={setRainfall} onFinish={saveSettings} minInputLimit={0} maxInputLimit={100}/>
         
         <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>
+
+        <TimeSwitch onChange={(value) => setSettings({...settings, use24hrTime: value})} />
       </View>
 
       <View style={{paddingTop: 60}}>
