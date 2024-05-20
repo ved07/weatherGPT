@@ -50,7 +50,7 @@ export default function SettingsScreen() {
                 step={0.1}
                 setInputValue={setTemperature}
                 onFinish={saveSettings}
-                minInputLimit={0}
+                minInputLimit={0.1}
                 maxInputLimit={50}
               />
             </View>
@@ -64,7 +64,7 @@ export default function SettingsScreen() {
                 step={0.1}
                 setInputValue={setRainfall}
                 onFinish={saveSettings}
-                minInputLimit={0}
+                minInputLimit={0.1}
                 maxInputLimit={100}
               />
             </View>
