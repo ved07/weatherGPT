@@ -1,14 +1,14 @@
-import { TableItem } from '@/components/SettingsTable';
-import { defaultTable } from '@/constants/defaultSettings';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createContext, useEffect, useState } from 'react';
+import { TableItem } from "@/components/SettingsTable";
+import { defaultTable } from "@/constants/defaultSettings";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createContext, useEffect, useState } from "react";
 
 interface Settings {
   temperatureTolerance: number;
   rainfallTolerance: number;
   use24hrTime: boolean;
   settingsTable: TableItem[];
-  secondaryMethod: 'bus' | 'walk';
+  secondaryMethod: "bus" | "walk";
   secondaryMultiplier: number;
   maxWaitTime: number;
 }
@@ -18,23 +18,23 @@ export const defaultSettings: Settings = {
   rainfallTolerance: 40,
   use24hrTime: false,
   settingsTable: defaultTable,
-  secondaryMethod: 'bus',
+  secondaryMethod: "bus",
   secondaryMultiplier: 2.0,
-  maxWaitTime: 60
-}
+  maxWaitTime: 60,
+};
 
 export const defaultSettingsContext = {
   settings: defaultSettings,
   loading: true,
-  setSettings: async (value: Settings) => {}
-}
+  setSettings: async (value: Settings) => {},
+};
 
 const dateTimeReviver = (key: string, value: any) => {
-  if (key === 'startTime' || key === 'endTime') {
+  if (key === "startTime" || key === "endTime") {
     return new Date(value);
   }
   return value;
-}
+};
 
 export const useSettings = () => {
   const [settings, setSettingsState] = useState<Settings>(defaultSettings);
@@ -43,11 +43,14 @@ export const useSettings = () => {
   useEffect(() => {
     const loadSettings = async () => {
       try {
-        const jsonValue = await AsyncStorage.getItem('settings');
-        const settings = jsonValue != null ? JSON.parse(jsonValue, dateTimeReviver) : defaultSettings;
+        const jsonValue = await AsyncStorage.getItem("settings");
+        const settings =
+          jsonValue != null
+            ? JSON.parse(jsonValue, dateTimeReviver)
+            : defaultSettings;
         setSettingsState(settings);
       } catch (error) {
-        console.error('Failed to load settings', error);
+        console.error("Failed to load settings", error);
       } finally {
         setLoading(false);
       }
@@ -58,15 +61,22 @@ export const useSettings = () => {
 
   const setSettings = async (value: Settings) => {
     const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem('settings', jsonValue);
+    await AsyncStorage.setItem("settings", jsonValue);
     setSettingsState(value);
   };
 
   return {
     settings,
     loading,
-    setSettings
+    setSettings,
   };
 };
 
-export const SettingsContext = createContext<{settings: Settings, loading: boolean, setSettings: (value: Settings) => Promise<void>} | undefined>(undefined);
+export const SettingsContext = createContext<
+  | {
+      settings: Settings;
+      loading: boolean;
+      setSettings: (value: Settings) => Promise<void>;
+    }
+  | undefined
+>(undefined);

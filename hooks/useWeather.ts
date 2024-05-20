@@ -11,15 +11,15 @@ const rainHigh = 100;
 const tempLow = 0;
 const tempHigh = 25;
 
-const randInInterval = (lo:number, hi:number) => {
-  return parseFloat((lo + Math.random()*(hi-lo)).toFixed(1));
-}
+const randInInterval = (lo: number, hi: number) => {
+  return parseFloat((lo + Math.random() * (hi - lo)).toFixed(1));
+};
 
 export const useWeather = () => {
   const [weather, setWeather] = useState<WeatherData>({
     timestamps: [],
     rainfall: [],
-    temperature: []
+    temperature: [],
   });
   const [loading, setLoading] = useState(true);
 
@@ -35,21 +35,21 @@ export const useWeather = () => {
     endOfDay.setHours(23, 59, 59, 999);
 
     const timeEnd = endOfDay.getTime();
-    
-    for (let t = startOfDay.getTime(); t <= timeEnd; t += 20*60*1000) {
+
+    for (let t = startOfDay.getTime(); t <= timeEnd; t += 20 * 60 * 1000) {
       let timestamp = new Date(now);
       timestamp.setTime(t);
       timestamps.push(timestamp);
-      rainfall.push(randInInterval(rainLow,rainHigh));
-      temperature.push(randInInterval(tempLow,tempHigh));
+      rainfall.push(randInInterval(rainLow, rainHigh));
+      temperature.push(randInInterval(tempLow, tempHigh));
     }
 
     setWeather({
       timestamps,
       rainfall,
-      temperature
+      temperature,
     });
-  }, [])
+  }, []);
 
   useEffect(() => {
     refetch();
@@ -59,19 +59,19 @@ export const useWeather = () => {
   return {
     weather,
     loading,
-    refetch
-  }
-}
+    refetch,
+  };
+};
 
 export const defaultWeatherContext: WeatherDataContext = {
   weather: {
     timestamps: [],
     rainfall: [],
-    temperature: []
+    temperature: [],
   },
   loading: true,
-  refetch: () => {}
-}
+  refetch: () => {},
+};
 
 export interface WeatherDataContext {
   weather: WeatherData;
@@ -79,4 +79,6 @@ export interface WeatherDataContext {
   refetch: () => void;
 }
 
-export const WeatherContext = createContext<WeatherDataContext | undefined>(undefined);
+export const WeatherContext = createContext<WeatherDataContext | undefined>(
+  undefined
+);

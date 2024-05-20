@@ -1,13 +1,6 @@
 import { daysOfWeek, defaultTable } from "@/constants/defaultSettings";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import RNDateTimePicker, {
   DateTimePickerEvent,
@@ -22,7 +15,6 @@ export interface TableItem {
   ticked: boolean;
   cycleTime: number;
 }
-
 
 const SettingsTable = ({
   startingValue,
@@ -50,11 +42,10 @@ const SettingsTable = ({
   const handleTimeChange = (index: number, flag = "s") => {
     setstartEndFlag(flag);
     setDay(index);
-    setShowTimeSelect(true);
+    setShowTimeSelect(!showTimeSelect);
   };
 
   const setTime = (event: DateTimePickerEvent, date?: Date) => {
-    setShowTimeSelect(false);
     if (event.type == "set" && typeof date != "undefined") {
       const newStData = [...stData];
       if (startEndFlag == "s") {
@@ -75,75 +66,103 @@ const SettingsTable = ({
   };
 
   return (
-    <View className="bg-gray-50 rounded-xl p-2 shadow-sm">
-      <View className="flex flex-row justify-between mb-2">
-        <View className="ml-7 w-10"><Text className="text-xs">Enable</Text></View>
-        <View className="flex flex-1 flex-row justify-between mx-5">
-          <View className=""><Text className="text-xs">Work start</Text></View>
-          <View><Text className="text-xs">Work end</Text></View>
-          <View><Text className="text-xs">Location</Text></View>
-        </View>
-        <View className="w-16"><Text className="text-xs">Cycle time</Text></View>
-      </View>
-      {stData.map((item, index) => (
-        <View key={index} style={styles.item}>
-          <View className="w-8 flex flex-row items-center">
-            <Text className="text-xs" style={styles.cell}>{daysOfWeek[item.day]}</Text>
-          </View>
-          <View className="w-10">
-            <BouncyCheckbox
-              fillColor={Colors.tint}
-              isChecked={item.ticked}
-              onPress={() => handleCheckboxChange(index)}
-            />
-          </View>
-          <Pressable
-            className="flex flex-row items-center px-1 mr-2 h-7"
-            style={styles.input}
-            onPress={() => handleTimeChange(index)}
-          >
-            <Text>{formatTime(item.startTime, use24hrTime)}</Text>
-          </Pressable>
-          <Pressable
-            className="flex flex-row items-center px-1 mr-2 h-7"
-            style={styles.input}
-            onPress={() => handleTimeChange(index, "e")}
-          >
-            <Text>{formatTime(item.endTime, use24hrTime)}</Text>
-          </Pressable>
-          <TextInput
-            className="px-1 mr-2 w-[30%] h-7"
-            style={styles.input}
-            value={item.location}
-            onChangeText={(text) => handleLocationChange(text, index)}
-            keyboardType="default"
-          />
-          <View className="w-10 h-7">
-            <TextInput
-              className="px-1 h-6 py-1"
-              style={styles.input}
-              value={item.cycleTime.toString()}
-              onChangeText={(text) => {
-                const newStData = [...stData];
-                newStData[index].cycleTime = parseInt(text);
-                setStData(newStData);
-                onSave(newStData);
-              }}
-              keyboardType="number-pad"
-            />
-          </View>
-        </View>
-      ))}
+    <>
       {showTimeSelect && (
-        <RNDateTimePicker
-          value={new Date(2020, 10, 20)}
-          mode="time"
-          display="spinner"
-          onChange={setTime}
-          is24Hour={use24hrTime}
-        />
+        <View
+          style={{
+            position: "absolute",
+          }}
+          className="absolute -left-4 -top-64 z-10 w-screen flex flex-col items-center justify-center"
+        >
+          <RNDateTimePicker
+            style={{
+              zIndex: 10,
+              width: 100,
+              opacity: 1,
+              borderRadius: 10,
+            }}
+            value={stData[day][startEndFlag == "s" ? "startTime" : "endTime"]}
+            mode="time"
+            display="spinner"
+            onChange={setTime}
+            is24Hour={use24hrTime}
+          />
+          <View className="absolute rounded-3xl w-[50%] h-full bg-white opacity-90"></View>
+        </View>
       )}
-    </View>
+      <View className="bg-gray-50 rounded-xl p-2 shadow-sm">
+        <View className="flex flex-row justify-between mb-2">
+          <View className="ml-7 w-10">
+            <Text className="text-xs">Enable</Text>
+          </View>
+          <View className="flex flex-1 flex-row justify-between mx-5">
+            <View className="">
+              <Text className="text-xs">Work start</Text>
+            </View>
+            <View>
+              <Text className="text-xs">Work end</Text>
+            </View>
+            <View>
+              <Text className="text-xs">Location</Text>
+            </View>
+          </View>
+          <View className="w-16">
+            <Text className="text-xs">Cycle time</Text>
+          </View>
+        </View>
+        {stData.map((item, index) => (
+          <View key={index} style={styles.item}>
+            <View className="w-8 flex flex-row items-center">
+              <Text className="text-xs" style={styles.cell}>
+                {daysOfWeek[item.day]}
+              </Text>
+            </View>
+            <View className="w-10">
+              <BouncyCheckbox
+                fillColor={Colors.tint}
+                isChecked={item.ticked}
+                onPress={() => handleCheckboxChange(index)}
+              />
+            </View>
+            <Pressable
+              className="flex flex-row items-center px-1 mr-2 h-7"
+              style={styles.input}
+              onPress={() => handleTimeChange(index)}
+            >
+              <Text>{formatTime(item.startTime, use24hrTime)}</Text>
+            </Pressable>
+            <Pressable
+              className="flex flex-row items-center px-1 mr-2 h-7"
+              style={styles.input}
+              onPress={() => handleTimeChange(index, "e")}
+            >
+              <Text>{formatTime(item.endTime, use24hrTime)}</Text>
+            </Pressable>
+            <TextInput
+              className="px-1 mr-2 w-[30%] h-7"
+              style={styles.input}
+              value={item.location}
+              onChangeText={(text) => handleLocationChange(text, index)}
+              keyboardType="default"
+            />
+            <View className="w-10 h-7">
+              <TextInput
+                className="px-1 h-6 py-1"
+                style={styles.input}
+                value={item.cycleTime.toString()}
+                onChangeText={(text) => {
+                  const newStData = [...stData];
+                  newStData[index].cycleTime = parseInt(text);
+                  setStData(newStData);
+                  onSave(newStData);
+                }}
+                keyboardType="number-pad"
+              />
+            </View>
+          </View>
+        ))}
+      </View>
+    </>
   );
 };
 

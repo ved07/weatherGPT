@@ -1,4 +1,4 @@
-import { TableItem } from "@/components/SettingsTable"
+import { TableItem } from "@/components/SettingsTable";
 
 export const defaultTable: TableItem[] = [
   {
@@ -57,6 +57,6 @@ export const defaultTable: TableItem[] = [
     ticked: false,
     cycleTime: 15,
   },
-]
+];
 
-export const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+export const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];

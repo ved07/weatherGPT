@@ -1,8 +1,7 @@
-
-import { Stack } from 'expo-router';
-import 'react-native-reanimated';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import "../global.css"
+import { Stack } from "expo-router";
+import "react-native-reanimated";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import "../global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 
