@@ -36,7 +36,7 @@ export const useWeather = () => {
 
     const timeEnd = endOfDay.getTime();
     
-    for (let t = startOfDay.getTime(); t <= timeEnd; t += 60*60*1000) {
+    for (let t = startOfDay.getTime(); t <= timeEnd; t += 20*60*1000) {
       let timestamp = new Date(now);
       timestamp.setTime(t);
       timestamps.push(timestamp);
