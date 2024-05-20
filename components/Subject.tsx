@@ -9,20 +9,18 @@ export const Subject = ({
     subject: string
     cyclist_position: number
 }) => {
-    if(subject == 'cycle')
+    if(subject == 'cycle') 
         return (
-            <View>
-                <Image
-                    source = {
-                        require('./../assets/cyclist.png')
-                    }
-                    style = {{
-                        left: cyclist_position,
-                        position: "absolute",
-                        top: 160
-                    }}
-                />
-            </View>
+            <Image
+                source = {
+                    require('./../assets/cyclist.png')
+                }
+                style = {{
+                    left: cyclist_position,
+                    position: "absolute",
+                    top: 160
+                }}
+            />
         )
     else if(subject == 'bus') 
         return (
@@ -40,14 +38,14 @@ export const Subject = ({
     else
     return (
         <Image
-        source = {
-        require('./../assets/walk.gif')
-        }
-        style = {{
-        left: cyclist_position,
-        position: "absolute",
-        top: 194,
-        }}
+            source = {
+                require('./../assets/walk.gif')
+            }
+            style = {{
+                left: cyclist_position,
+                position: "absolute",
+                top: 194,
+            }}
         />
     )
 }
