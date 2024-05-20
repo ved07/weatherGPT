@@ -107,7 +107,7 @@ export const Background = ({ children } : BackgroundProps) => {
             style = {{
               alignContent:"center",
               position: "absolute",
-              top: 334
+              top: 334,
             }}
           />
         </View>
