@@ -5,7 +5,7 @@ import SettingSlider from "@/components/SettingSlider"
 import { TimeSwitch } from "@/components/24HourTimeSwitch"
 import {styles} from "@/constants/styles";
 import { SettingsContext, defaultSettingsContext, useSettings } from "@/hooks/useSettings";
-import SettingsTable, { stitem } from "@/components/SettingsTable";
+import SettingsTable, { TableItem } from "@/components/SettingsTable";
 
 export default function SettingsScreen() {
   const {settings, loading, setSettings} = useContext(SettingsContext) || defaultSettingsContext;
@@ -21,7 +21,7 @@ export default function SettingsScreen() {
     })
   }
 
-  const onTableSave = (newTable: stitem[]) => {
+  const onTableSave = (newTable: TableItem[]) => {
     setSettings({
       ...settings,
       settingsTable: newTable

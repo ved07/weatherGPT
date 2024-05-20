@@ -1,26 +1,24 @@
-import { defaultTable } from "@/constants/defaultSettings";
+import { daysOfWeek, defaultTable } from "@/constants/defaultSettings";
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, FlatList } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-export interface stitem {
-  id: string;
-  day: string;
-  startTime: string;
-  endTime: string;
+export interface TableItem {
+  day: number;
+  startTime: Date;
+  endTime: Date;
   location: string;
   ticked: boolean;
   cycleTime: number;
 }
 
-/* */
 const SettingsTable = ({
   startingValue,
   onSave,
 }: {
-  startingValue?: stitem[];
-  onSave: (tableValues: stitem[]) => void;
+  startingValue?: TableItem[];
+  onSave: (tableValues: TableItem[]) => void;
 }) => {
-  const [stData, setStData] = useState<stitem[]>(startingValue || defaultTable);
+  const [stData, setStData] = useState<TableItem[]>(startingValue || defaultTable);
 
   const handleCheckboxChange = (index: number) => {
     const newStData = [...stData];
@@ -30,15 +28,15 @@ const SettingsTable = ({
   };
 
   const handleTimeChange = (time1: string, index: number, flag = "s") => {
-    const newStData = [...stData];
-    if (flag == "s") {
-      newStData[index].startTime = time1;
-      setStData(newStData);
-    } else {
-      newStData[index].endTime = time1;
-      setStData(newStData);
-    }
-    onSave(newStData)
+    // const newStData = [...stData];
+    // if (flag == "s") {
+    //   newStData[index].startTime = time1;
+    //   setStData(newStData);
+    // } else {
+    //   newStData[index].endTime = time1;
+    //   setStData(newStData);
+    // }
+    // onSave(newStData)
   };
   const handleLocationChange = (location: string, index: number) => {
     const newStData = [...stData];
@@ -47,22 +45,22 @@ const SettingsTable = ({
     onSave(newStData)
   };
 
-  const renderitem = ({ item, index }: { index: number; item: stitem }) => (
+  const renderitem = ({ item, index }: { index: number; item: TableItem }) => (
     <View style={styles.item}>
-      <Text style={styles.cell}>{item.day}</Text>
+      <Text style={styles.cell}>{daysOfWeek[item.day]}</Text>
       <BouncyCheckbox
         isChecked={item.ticked}
         onPress={() => handleCheckboxChange(index)}
       />
       <TextInput
         style={styles.input}
-        value={item.startTime}
+        value={item.startTime.toLocaleTimeString()}
         onChangeText={(text) => handleTimeChange(text, index)}
         keyboardType="numeric"
       />
       <TextInput
         style={styles.input}
-        value={item.endTime}
+        value={item.endTime.toLocaleTimeString()}
         onChangeText={(text) => handleTimeChange(text, index, "e")}
         keyboardType="numeric"
       />
@@ -80,7 +78,7 @@ const SettingsTable = ({
       <FlatList
         data={stData}
         renderItem={renderitem}
-        keyExtractor={(item, index) => item.id}
+        keyExtractor={(item, index) => index.toString()}
       />
     </View>
   );

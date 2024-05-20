@@ -57,6 +57,8 @@ export default function HomeScreen() {
   const plan = usePlanner()
   const currentTime = useCurrentTime()
 
+  const currentWeekDay = currentTime.getDay()
+
   if (loading || !plan) return <SafeAreaView className="flex items-center justify-center"><ActivityIndicator /></SafeAreaView>
 
   return (
