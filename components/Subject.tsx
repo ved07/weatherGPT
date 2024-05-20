@@ -41,12 +41,12 @@ export const Subject = ({
     return (
         <Image
         source = {
-        require('./../assets/walk.png')
+        require('./../assets/walk.gif')
         }
         style = {{
-        left: cyclist_position + 30,
+        left: cyclist_position,
         position: "absolute",
-        top: 233,
+        top: 194,
         }}
         />
     )
