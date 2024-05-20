@@ -8,10 +8,10 @@ export interface LocationTime {
 
 const LocationTimeDisplay = ({location, time}: LocationTime) => (
   <View className="flex flex-col items-center justify-center bg-gray-100 w-32 h-32">
-    <Image
+    {location === "Home" && <Image
       source = {require('./../assets/house.png')}
       style = {{ aspectRatio: 1, width: '25%', height: "auto"}}
-    />
+    />}
     <View><Text className="text-center">{location}</Text></View>
     <View><Text className="text-lg">{time}</Text></View>
   </View>

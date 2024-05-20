@@ -68,8 +68,6 @@ export const usePlanner = (): Plan => {
     const method = (toJourney.rainfall <= settings.rainfallTolerance && toJourney.temperature >= settings.temperatureTolerance &&
       backJourney.rainfall <= settings.rainfallTolerance && backJourney.temperature >= settings.temperatureTolerance) ? "cycle" : "walk";
     
-    console.log(method)
-
     return {
       method: method,
       toJourney: toJourney,
