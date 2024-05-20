@@ -39,12 +39,9 @@ export const Background = ({ children, plan } : BackgroundProps) => {
   const tmp = useRef(0);
   const tmp2 = useRef(0);
 
-  const weather = useRef(plan.toJourney.rainfall >= 20 ? 'raining' : 'cloud')
 
   useEffect(() => {
     const rerender = () => {
-
-      weather.current = plan.toJourney.rainfall >= 20 ? 'raining' : 'cloud';
 
       setCyclistPosition(cyclistPositionRef.current);
       if(cyclistPositionRef.current < 100) {
@@ -119,7 +116,7 @@ export const Background = ({ children, plan } : BackgroundProps) => {
               position: "absolute"
             }}
           />
-          <Cloud weather = {weather.current} cloud_position_x = {cloud_position_x} cloud_position_y = {cloud_position_y}/>
+          <Cloud weather = {plan.toJourney.rainfall >= 20 ? 'raining' : 'cloud'} cloud_position_x = {cloud_position_x} cloud_position_y = {cloud_position_y}/>
           <Image
             source = {require('./../assets/tree.png')}
             style = {{
