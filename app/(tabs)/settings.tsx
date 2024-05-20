@@ -70,8 +70,6 @@ export default function SettingsScreen() {
             </View>
           </View>
 
-          <Text>Testing: temperature={settings.temperatureTolerance}, rainfall={settings.rainfallTolerance}</Text>
-
           <View style={styles.switchContainer}>
             <View style={styles.sectionBackground}>
               <Text style={styles.label}>24-Hour Time</Text>
