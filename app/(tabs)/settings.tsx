@@ -5,7 +5,7 @@ import SettingSlider from "@/components/SettingSlider"
 import { TimeSwitch } from "@/components/24HourTimeSwitch"
 import {styles} from "@/constants/styles";
 import { SettingsContext, defaultSettingsContext, useSettings } from "@/hooks/useSettings";
-import SettingsTable from "@/components/SettingsTable";
+import SettingsTable, { stitem } from "@/components/SettingsTable";
 
 export default function SettingsScreen() {
   const {settings, loading, setSettings} = useContext(SettingsContext) || defaultSettingsContext;
@@ -18,6 +18,13 @@ export default function SettingsScreen() {
       ...settings,
       rainfallTolerance: parseFloat((rainfall).toFixed(1)),
       temperatureTolerance: parseFloat((temperature - 10.0).toFixed(1))
+    })
+  }
+
+  const onTableSave = (newTable: stitem[]) => {
+    setSettings({
+      ...settings,
+      settingsTable: newTable
     })
   }
 
@@ -43,7 +50,7 @@ export default function SettingsScreen() {
       </View>
 
       <View style={{paddingTop: 60}}>
-        <SettingsTable/>
+        <SettingsTable startingValue={settings.settingsTable} onSave={onTableSave} />
       </View>
     </SafeAreaView>
   );

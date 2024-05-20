@@ -1,3 +1,5 @@
+import { stitem } from '@/components/SettingsTable';
+import { defaultTable } from '@/constants/defaultSettings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useEffect, useState } from 'react';
 
@@ -5,12 +7,14 @@ interface Settings {
   temperatureTolerance: number;
   rainfallTolerance: number;
   use24hrTime: boolean;
+  settingsTable: stitem[];
 }
 
 export const defaultSettings = {
   temperatureTolerance: 15,
   rainfallTolerance: 40,
   use24hrTime: false,
+  settingsTable: defaultTable
 }
 
 export const defaultSettingsContext = {
