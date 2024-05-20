@@ -1,3 +1,4 @@
+import { Colors } from '@/constants/Colors';
 import Slider from '@react-native-community/slider';
 
 type SettingSliderProps = {
@@ -12,13 +13,13 @@ type SettingSliderProps = {
 export default function SettingSlider({ initialValue, setInputValue, minInputLimit, maxInputLimit, onFinish, step } : SettingSliderProps) {
   return <Slider
     value={initialValue}
-    style={{width: 200, height: 40}}
+    style={{width: 150, height: 40}}
     minimumValue={minInputLimit}
     maximumValue={maxInputLimit}
     onValueChange={setInputValue}
     onSlidingComplete={onFinish}
     step={step}
-    minimumTrackTintColor="#000000"
+    minimumTrackTintColor={Colors.tint}
     maximumTrackTintColor="#808080"
   />
 };

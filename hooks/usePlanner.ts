@@ -19,7 +19,7 @@ export interface Plan {
 }
 
 const defaultPlan: Plan = {
-  method: "walk",
+  method: "cycle",
   toJourney: {
     startTime: new Date(),
     endTime: new Date(),
@@ -50,10 +50,6 @@ export const usePlanner = (): Plan => {
     let startTime: Date;
     let endTime: Date;
     let cycleTime: number;
-
-    console.log(timestamps)
-    console.log("settingsTable")
-    console.log(settings.settingsTable)
     
     if (settings.settingsTable !== undefined) {
       const settingToday = settings.settingsTable.find((st) => st.day == (now.getDay() + 6) % 7);
@@ -64,9 +60,7 @@ export const usePlanner = (): Plan => {
       const et = settingToday!.endTime
       endTime = new Date(now);
       endTime.setHours(et.getHours(), et.getMinutes(), et.getSeconds(), et.getMilliseconds())
-      
-      // startTime = new Date(now.getTime() + settingToday.startTime.getTime());
-      // endTime = new Date(now.getTime() + settingToday.endTime.getTime());
+
       cycleTime = settingToday!.cycleTime;
     }
     else {
@@ -78,10 +72,6 @@ export const usePlanner = (): Plan => {
 
       cycleTime = 30;
     }
-    
-    console.log(startTime)
-    console.log(endTime)
-    console.log(cycleTime)
 
     const toTime = new Date(startTime.getTime() - cycleTime * 60 * 1000);
     const backTime = endTime;
@@ -92,38 +82,56 @@ export const usePlanner = (): Plan => {
     // Try to make toIndex and backIndex satisfy the constraints
     for (let index = 0; index < timestamps.length; index++) {
       if(rainfall[index] <= settings.rainfallTolerance && temperature[index] >= settings.temperatureTolerance) {
-        if (timestamps[index] <= toTime && index > toIndex) {
+        let distToTime = toTime.getTime() - timestamps[index].getTime()
+        let distBackTime = timestamps[index].getTime() - backTime.getTime()
+
+        if (0 <= distToTime && distToTime <= settings.maxWaitTime*60*1000 && index > toIndex) {
           toIndex = index;
         }
-        if (timestamps[index] >= backTime && index < backIndex) {
+        if (0 <= distBackTime && distBackTime <= settings.maxWaitTime*60*1000 && index < backIndex) {
           backIndex = index;
         }
       }
     }
     
-    // Give the latest time possible if temp/rain constraints are impossible to satisfy
+    let latestToIndex = 0;
     if (toIndex == -1) {
       for (let index = 0; index < timestamps.length; index++) {
-        if (timestamps[index] <= toTime && index > toIndex) {
-          toIndex = index;
+        if (timestamps[index] <= toTime && index > latestToIndex) {
+          latestToIndex = index;
         }
       }
     }
 
-    // Give the earliest time possible if temp/rain constraints are impossible to satisfy
+    let earliestBackIndex = timestamps.length-1;
     if (backIndex == timestamps.length) {
       for (let index = 0; index < timestamps.length; index++) {
-        if (timestamps[index] >= backTime && index < backIndex) {
-          backIndex = index;
+        if (timestamps[index] >= backTime && index < earliestBackIndex) {
+          earliestBackIndex = index;
         }
       }
     }
 
-    if (toIndex == -1) toIndex = 0
-    if (backIndex == timestamps.length) backIndex = timestamps.length-1
+    if (toIndex === -1 || backIndex === timestamps.length) {
+      const toJourney = {
+        startTime: new Date(startTime.getTime() - cycleTime*settings.secondaryMultiplier*60*1000),
+        endTime: startTime,
+        rainfall: rainfall[latestToIndex],
+        temperature: temperature[latestToIndex]
+      }
+      const backJourney = {
+        startTime: endTime,
+        endTime: new Date(endTime.getTime() + cycleTime*settings.secondaryMultiplier*60*1000),
+        rainfall: rainfall[earliestBackIndex],
+        temperature: temperature[earliestBackIndex]
+      }
 
-    console.log("toIndex: " + toIndex)
-    console.log("backIndex: " + backIndex)
+      return {
+        method: settings.secondaryMethod,
+        toJourney: toJourney,
+        backJourney: backJourney
+      }
+    }
 
     if (weatherLoading || !timestamps.length) return defaultPlan;
 
@@ -140,12 +148,9 @@ export const usePlanner = (): Plan => {
       rainfall: rainfall[backIndex],
       temperature: temperature[backIndex]
     }
-
-    const method = (toJourney.rainfall <= settings.rainfallTolerance && toJourney.temperature >= settings.temperatureTolerance &&
-      backJourney.rainfall <= settings.rainfallTolerance && backJourney.temperature >= settings.temperatureTolerance) ? "cycle" : "walk";
     
     return {
-      method: method,
+      method: "cycle",
       toJourney: toJourney,
       backJourney: backJourney
     }

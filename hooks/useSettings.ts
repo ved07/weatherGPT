@@ -8,13 +8,19 @@ interface Settings {
   rainfallTolerance: number;
   use24hrTime: boolean;
   settingsTable: TableItem[];
+  secondaryMethod: 'bus' | 'walk';
+  secondaryMultiplier: number;
+  maxWaitTime: number;
 }
 
-export const defaultSettings = {
+export const defaultSettings: Settings = {
   temperatureTolerance: 15,
   rainfallTolerance: 40,
   use24hrTime: false,
-  settingsTable: defaultTable
+  settingsTable: defaultTable,
+  secondaryMethod: 'bus',
+  secondaryMultiplier: 2.0,
+  maxWaitTime: 60
 }
 
 export const defaultSettingsContext = {

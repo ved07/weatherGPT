@@ -39,14 +39,14 @@ export const TextBlog = ({
         
         >
           <View>
-            <View style = {{
+            <View className="px-2 pb-1" style = {{
               borderBottomWidth: 1,
               borderColor: "black",
               width: 250,
             }}>
-              <Text style = {textStyle}>{text}</Text>
+              <Text className="text-center w-full" style = {textStyle}>{text}</Text>
             </View>
-            <Text>{hidden}</Text>
+            <Text className="p-2">{hidden}</Text>
           </View>
         
         </TouchableHighlight>

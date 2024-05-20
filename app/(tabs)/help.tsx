@@ -12,7 +12,7 @@ export default function HelpScreen() {
   const plan = usePlanner()
   return (
     <Background plan={plan}>
-      <View style={{
+      <View className="w-full h-full flex flex-col items-center" style={{
         paddingTop: "50%",
       }}>
         <TextBlog text = {"FAQs"} hidden = {"Take a look at some of our frequently asked questions! We're here to help."} />
