@@ -58,6 +58,7 @@ const SettingsTable = ({
         newStData[day].endTime = date;
       }
       setStData(newStData); 
+      onSave(newStData)
     }
   }
 

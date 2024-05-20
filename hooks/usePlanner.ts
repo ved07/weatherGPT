@@ -56,18 +56,18 @@ export const usePlanner = (): Plan => {
     console.log(settings.settingsTable)
     
     if (settings.settingsTable !== undefined) {
-      const settingToday = settings.settingsTable.find((st) => st.day == now.getDay());
-      const st = settingToday.startTime;
+      const settingToday = settings.settingsTable.find((st) => st.day == (now.getDay() + 6) % 7);
+      const st = settingToday!.startTime;
       startTime = new Date(now);
       startTime.setHours(st.getHours(), st.getMinutes(), st.getSeconds(), st.getMilliseconds())
       
-      const et = settingToday.endTime
+      const et = settingToday!.endTime
       endTime = new Date(now);
       endTime.setHours(et.getHours(), et.getMinutes(), et.getSeconds(), et.getMilliseconds())
       
       // startTime = new Date(now.getTime() + settingToday.startTime.getTime());
       // endTime = new Date(now.getTime() + settingToday.endTime.getTime());
-      cycleTime = settingToday.cycleTime;
+      cycleTime = settingToday!.cycleTime;
     }
     else {
       startTime = new Date(now);
